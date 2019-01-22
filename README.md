@@ -8,10 +8,10 @@ This repository contains a set of scripts designed to convert time-lapse VSI-for
 ./src/barrier-pipeline.sh /path/to/vsi_files/ /path/to/deposit/results/ 
 ```
 
-## Usage in a server environment
+## Application in a server environment
 In the server environment there is typically no graphical display available. This presents a problem for our pipeline, as ImageJ will trigger an error if there is no screen to display images on despite the fact that none of the operations in this script require graphical display. 
 
-An easy workaround is to create 'fake' graphical display - essentially a data sink that ImageJ can send graphical data to without disrupting operation of the server. This is done using the unix software [xvfb](https://packages.debian.org/sid/xvfb).
+An easy workaround is to create a 'fake' graphical display - essentially a data sink that ImageJ can send graphical data to without disrupting operation of the server. This is done using the unix software [xvfb](https://packages.debian.org/sid/xvfb).
 
 ``` shell
 xvfb-run -a ./src/barrier-pipeline.sh /path/to/vsi_files/ /path/to/deposit/results/ 
@@ -53,3 +53,5 @@ run("Quit");
 eval("script", "System.exit(0);");
 ```
 
+## How it works
+![design schematic](img/schematic.png)
