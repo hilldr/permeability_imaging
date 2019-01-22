@@ -16,7 +16,7 @@ mkdir -p $RESULTDIR
 
 echo "[START] converting VSI files in $VSIDIR to tif files for experiment $EXPERIMENT"
 
-java -jar ./bin/ij.jar --headless -ijpath ./bin -batch ./src/vis2tif.ijm $VSIDIR
+java -jar ./bin/ij.jar --headless -ijpath ./bin -batch ./src/vsi2tif.ijm $VSIDIR
 
 echo "[FINISHED] converting VSI files to TIF"
 
