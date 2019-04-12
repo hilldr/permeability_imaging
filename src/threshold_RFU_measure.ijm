@@ -2,9 +2,9 @@ filename = getArgument;
 
 function fitc(filename) {
     open(filename);
-    run("8-bit");
-    setAutoThreshold("Default dark");
-    setThreshold(155, 255);
+    run("16-bit");
+//    setAutoThreshold("Default dark");
+    setThreshold(15000, 65535);
     run("Set Measurements...",
 	 "area mean min median limit display redirect=None decimal=9");
     run("Measure");
