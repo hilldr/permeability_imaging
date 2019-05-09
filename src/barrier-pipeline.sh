@@ -14,7 +14,6 @@ case $i in
     --min_thresh=*)
     MINTHRESH="${i#*=}"
     shift # past argument=value
-    ;;
 
 ## set ImageJ macro
 IJM=./src/threshold_RFU_measure.ijm
