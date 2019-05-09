@@ -14,6 +14,10 @@ case $i in
     --min_thresh=*)
     MINTHRESH="${i#*=}"
     shift # past argument=value
+    ;;
+    
+esac
+done
 
 ## set ImageJ macro
 IJM=./src/threshold_RFU_measure.ijm
@@ -77,3 +81,4 @@ echo '[IMAGE PROCESSING FINISHED]'
 echo 'Printing first 10 lines of output'
 echo '#################################'
 head $RESULTDIR/$EXPERIMENT\_threshold_estimates.txt
+
