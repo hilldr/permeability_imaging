@@ -6,11 +6,36 @@
 VSIDIR=$1
 ## set output directory
 RESULTDIR=$2
+
+## set minimum threshold value with --min_thresh=
+for i in "$@"
+do
+case $i in
+    --min_thresh=*)
+    MINTHRESH="${i#*=}"
+    shift # past argument=value
+    ;;
+
 ## set ImageJ macro
 IJM=./src/threshold_RFU_measure.ijm
 DIRNAME=${VSIDIR%/}
 EXPERIMENT=${DIRNAME##*/}
-MINTHRESH="10000 20000 30000 40000 50000 60000"
+
+## if arguments are not supplied, prompt user for directories and cores
+if [ -z "$1" ]
+then
+    read -e -p "Directory containing unprocessed VSI images:" VSIDIR
+fi
+
+if [ -z "$2" ]
+then
+read -e -p "Output directory to deposit results:" RESULTDIR
+fi
+
+if [ -z "$MINTHRESH" ]
+then
+read -p "Set minimum threshold value (in quotes if multiple):" MINTHRESH
+fi
 
 ## make folder to deposit results
 mkdir -p $RESULTDIR
@@ -26,7 +51,8 @@ echo '[START] Computing fluorescence intensity values...'
 
 
 ## create data file and add header line
-echo 'Filename	Area	Mean	Min	Max	Median' > $RESULTDIR/$EXPERIMENT\_threshold_estimates.txt
+echo 'Filename	Area	Mean	Min	Max	Median' > \
+     $RESULTDIR/$EXPERIMENT\_threshold_estimates.txt
 
 ## process all files in VSIDIR and output to threshold_estimates.txt
 start_count=$(ls -d $VSIDIR/*.tif | wc -l)

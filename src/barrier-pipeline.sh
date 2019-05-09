@@ -6,10 +6,36 @@
 VSIDIR=$1
 ## set output directory
 RESULTDIR=$2
+
+## set minimum threshold value with --min_thresh=
+for i in "$@"
+do
+case $i in
+    --min_thresh=*)
+    MINTHRESH="${i#*=}"
+    shift # past argument=value
+    ;;
+
 ## set ImageJ macro
 IJM=./src/threshold_RFU_measure.ijm
 DIRNAME=${VSIDIR%/}
 EXPERIMENT=${DIRNAME##*/}
+
+## if arguments are not supplied, prompt user for directories and cores
+if [ -z "$1" ]
+then
+    read -e -p "Directory containing unprocessed VSI images:" VSIDIR
+fi
+
+if [ -z "$2" ]
+then
+read -e -p "Output directory to deposit results:" RESULTDIR
+fi
+
+if [ -z "$MINTHRESH" ]
+then
+read -p "Set minimum threshold value:" MINTHRESH
+fi
 
 ## make folder to deposit results
 mkdir -p $RESULTDIR
@@ -36,7 +62,7 @@ do
     echo "$count of $start_count tif files remaining in $VSIDIR"
 
     ## run imagej measurement script
-    java -jar ./bin/ij.jar --headless -ijpath ./bin -batch $IJM $file | sed '1d' | cut -f 2-7 >> $RESULTDIR/$EXPERIMENT\_threshold_results.txt
+    java -jar ./bin/ij.jar --headless -ijpath ./bin -batch $IJM "$file $MINTHRESH" | sed '1d' | cut -f 2-7 >> $RESULTDIR/$EXPERIMENT\_threshold_results.txt
 
     ## delete tif file to save disk space
     rm $file
