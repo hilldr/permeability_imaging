@@ -37,5 +37,8 @@ echo "[START] converting VSI files in $VSIDIR to tif files for experiment $EXPER
 
 java -jar ./bin/ij.jar --headless -ijpath ./bin -batch ./src/vsi2timepoint.ijm "$VSIDIR $TIMEPOINT"
 
+## move tif files to RESULTDIR
+mv $VSIDIR/*.tif $RESULTDIR
+
 echo "[FINISHED] converting T0 VSI files to TIF"
 
