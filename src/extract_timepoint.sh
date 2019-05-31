@@ -41,5 +41,5 @@ java -jar ./bin/ij.jar --headless -ijpath ./bin -batch ./src/vsi2timepoint.ijm "
 ## move tif files to RESULTDIR
 mv $VSIDIR/*.tif $RESULTDIR
 
-echo "[FINISHED] converting T0 VSI files to TIF"
+echo "[FINISHED] converting T$TIMEPOINT VSI files to TIF"
 
