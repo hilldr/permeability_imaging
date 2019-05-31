@@ -33,7 +33,8 @@ fi
 ## make folder to deposit results
 mkdir -p $RESULTDIR
 
-echo "[START] converting VSI files in $VSIDIR to tif files for experiment $EXPERIMENT and timepoint $TIMEPOINT"
+echo "[START] converting VSI files in $VSIDIR to tif files"
+echo "experiment $EXPERIMENT and timepoint $TIMEPOINT"
 
 java -jar ./bin/ij.jar --headless -ijpath ./bin -batch ./src/vsi2timepoint.ijm "$VSIDIR $TIMEPOINT"
 
